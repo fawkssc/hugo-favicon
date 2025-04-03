@@ -1,3 +1,3 @@
-module github.com/fawkssc/hugo-favicon.git
+module github.com/fawkssc/hugo-favicon
 
 go 1.18
