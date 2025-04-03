@@ -1,0 +1,28 @@
+{{- $faviconParams := site.Params.favicon -}}
+{{- $manifestParams := $faviconParams.webmanifest -}}
+{{- $title := ($manifestParams.title | default $faviconParams.title) | default site.Title -}}
+{
+  "name": "{{ $title }}",
+  "short_name": "{{ (($manifestParams.sortTitle | default $faviconParams.shortTitle) | default site.Params.shortTitle) | default $title }}",
+  "icons": [
+    {
+      "src": "{{ ((resources.Get "images/web-app-manifest-192x192.png") | fingerprint).RelPermalink }}",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "{{ ((resources.Get "images/web-app-manifest-512x512.png") | fingerprint).RelPermalink }}",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  {{- with $manifestParams.theme | default $faviconParams.theme | default site.Params.themeColor -}}
+  "theme_color": "{{ . }}",
+  {{- end -}}
+  {{- with $manifestParams.background | default $faviconParams.background -}}
+  "background_color": "{{ . }}",
+  {{- end -}}
+  "display": "standalone"
+}

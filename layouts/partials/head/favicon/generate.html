@@ -1,0 +1,17 @@
+{{- $size := .Size -}}
+{{- $resourceName := .Resource | default site.Params.favicon.resources.png -}}
+{{- $scale := float (.Scale | default site.Params.favicon.scale | default 1.0) -}}
+{{- $format := .Format | default "png" -}}
+{{- $background := .Background | default site.Params.favicon.background -}}
+{{- if $background }}{{ $background = printf "#%s" $background }}{{ end -}}
+{{- $resource := resources.Get $resourceName -}}
+{{- if lt $scale 1.0 -}}
+{{- $innerSize := int (math.Round (math.Mul (float $size) $scale)) -}}
+{{- $padding := int (math.Div (math.Sub $size $innerSize) 2) -}}
+{{- $filter := images.Padding $padding $background -}}
+{{- $resource = $resource.Process (printf "resize %dx%d %s %s" $innerSize $innerSize $format $background) -}}
+{{- $resource = $resource | images.Filter $filter -}}
+{{- else -}}
+{{- $resource = $resource.Process (printf "resize %dx%d %s %s" $size $size $format $background) -}}
+{{- end -}}
+{{ return $resource }}

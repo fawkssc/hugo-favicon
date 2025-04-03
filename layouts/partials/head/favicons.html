@@ -1,0 +1,16 @@
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="{{ ((resources.Get "images/favicon-96x96.png") | fingerprint).RelPermalink }}" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="{{ (((resources.Get "images/favicon.svg") | default (resources.Get "images/logo.svg")) | fingerprint).RelPermalink }}" />
+<link rel="shortcut icon" href="{{ ((resources.Get "images/favicon.ico") | fingerprint).RelPermalink }}" />
+<!-- Apple Touch -->
+<link rel="apple-touch-icon" type="image/png" href="{{ ((resources.Get "images/apple-touch-icon.png") | fingerprint).RelPermalink }}" sizes="180x180" />
+<!-- Site Manifest -->
+{{- with resources.Get "site.webmanifest" -}}
+{{- with resources.ExecuteAsTemplate "site.webmanifest" $ . }}
+{{- if site.Params.favicon.webmanifest.fingerprint -}}
+<link rel="manifest" content="{{ (. | fingerprint).RelPermalink }}" />
+{{- else -}}
+<link rel="manifest" content="{{ .RelPermalink }}" />
+{{- end -}}
+{{- end -}}
+{{- end -}}
