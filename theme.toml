@@ -1,0 +1,9 @@
+name = 'Hugo Favicon'
+license = 'MIT'
+licenselink = 'https://github.com/fawkssc/hugo-favicon/LICENSE'
+description = 'Generates the favicons from a SVG resource.'
+homepage = 'https://github.com/fawkssc/hugo-favicon'
+
+[author]
+  name = 'Fawks Software Consulting'
+  homepage = 'https://www.fawkssoftwareconsulting.com'
